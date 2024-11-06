@@ -16,9 +16,6 @@ spec:
       containers:
         - image: node:latest
           name: nodejs
-          command: ["node", "-e", "console.log('Hello World!')"]
-
-
           imagePullPolicy: Always
           ports:
             - containerPort: 3000

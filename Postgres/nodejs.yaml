@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-deployment
+  labels:
+    app: nodejs
+spec:
+  selector:
+    matchLabels:
+      app: nodejs
+  template:
+    metadata:
+      labels:            
+        app: nodejs
+    spec:
+      containers:
+        - image: node:latest
+          name: nodejs
+          command: ["node", "-e", "console.log('Hello World!')"]
+
+
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          env:
+            - name: POSTGRES_DB
+              value: postgres_db
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: username
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: password
+            - name: POSTGRES_HOST
+              value: postgres
+            - name: POSTGRES_PORT
+              value: "5432"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodejs-svc
+  labels:                     
+    app: nodejs
+spec:
+  ports:                     
+    - port: 3000
+      targetPort: 3000
+  selector:
+    app: nodejs
+  type: LoadBalancer
+
+
+
+
+
+

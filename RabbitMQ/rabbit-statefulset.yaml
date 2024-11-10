@@ -28,8 +28,7 @@ spec:
           mountPath: /etc/rabbitmq/
       containers:
       - name: rabbitmq
-        image: rabbitmq:3.8-management
-        ports:
+        image: rabbitmq
         - containerPort: 15672
           name: discovery
         - containerPort: 5672

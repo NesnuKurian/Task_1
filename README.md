@@ -1,1 +1,1 @@
-# Task_1
+Kubernetes manifests for MongoDB,Postgres and RabbitMQ
